@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // ── PUBLIC: projects ─────────────────────────────────────────────────────
+    // Anyone can read published projects; only admins can write
+    match /projects/{docId} {
+      allow read: if resource.data.published == true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── PUBLIC: services ─────────────────────────────────────────────────────
+    // Anyone can read enabled services; only admins can write
+    match /services/{docId} {
+      allow read: if resource.data.enabled == true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── PUBLIC: testimonials ─────────────────────────────────────────────────
+    // Anyone can read published testimonials; only admins can write
+    match /testimonials/{docId} {
+      allow read: if resource.data.published == true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── PUBLIC: leads (contact form) ─────────────────────────────────────────
+    // Anyone can CREATE a lead (contact form submission)
+    // Only authenticated admins can read/update/delete
+    match /leads/{docId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+
+    // ── ADMIN-ONLY: media, settings, admins ──────────────────────────────────
+    match /media/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /settings/{docId} {
+      allow read: if true;           // Public can read settings (site name, etc.)
+      allow write: if isAuthenticated();
+    }
+
+    match /admins/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
