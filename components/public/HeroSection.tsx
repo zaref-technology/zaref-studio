@@ -75,29 +75,15 @@ export default function HeroSection() {
               className="opacity-0 block"
               style={{ animationDelay: '100ms' }}
             >
-              WE CREATE
-            </div>
-            <div
-              data-animate
-              className="opacity-0 block text-gradient"
-              style={{ animationDelay: '200ms' }}
-            >
-              CONTENT
-            </div>
-            <div
-              data-animate
-              className="opacity-0 block"
-              style={{ animationDelay: '300ms' }}
-            >
-              THAT GETS
+              YOUR BRAND.
             </div>
             <div
               data-animate
               className="opacity-0 block relative"
-              style={{ animationDelay: '400ms' }}
+              style={{ animationDelay: '220ms' }}
             >
-              ATTENTION.
-              <span className="absolute -bottom-2 left-0 h-1 w-24 bg-blue-600 rounded-full" />
+              <span className="text-gradient">OUR CREATIVITY.</span>
+              <span className="absolute -bottom-2 left-0 h-1 w-28 bg-blue-500 rounded-full" />
             </div>
           </h1>
 
